@@ -32,5 +32,4 @@ export class Current {
   gust_mph: number | undefined;
   gust_kph: number | undefined;
   air_quality: AirQuality | undefined;
-  location: Location | undefined;
 }
