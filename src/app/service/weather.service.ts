@@ -18,5 +18,9 @@ export class WeatherService {
     return this.http.get(environment.baseUrl + "/current.json?key="+environment.key+"&q="+lat+","+long+"&aqi=yes&lang=tr")
   }
 
+  forecastCoords(lat: number, long: number) {
+    return this.http.get(environment.baseUrl + "/forecast.json?key="+environment.key+"&q="+lat+","+long+"&days=7"+"&aqi=yes&lang=tr")
+  }
+
 
 }

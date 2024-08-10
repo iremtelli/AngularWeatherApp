@@ -1,32 +1,113 @@
-<div class="sidenav">
-
-
-  <input type="text" name="text" class="input" [(ngModel)]="city"  (keyup.enter)="getTodayWeather()" placeholder="Search for places...">
-  <img style="width:94%; height: 13rem" [src]="getImage(weather.current.condition.code)"/>
+<div class="sidenav border-right-1 border-purple-900">
+  <input type="text" name="text" class="input shadow-4" [(ngModel)]="city" (keyup.enter)="getTodayWeather()" placeholder="Search for places...">
+  <img style="width:94%; height: 13rem" [src]="getImage(weather?.current?.condition?.code)"/>
   <div style="    font-size: 45px;
     display: flex;
     justify-content: center;
-    color: aliceblue;">{{ weather.current.temp_c }} °C
+    color: #f1f1f1;">{{ weather.current.temp_c }}°C
   </div>
   <div style="    font-size: 45px;
     display: flex;
     justify-content: center;
-    color: aliceblue;">{{weather.location.name}}
+    color: aliceblue;">{{ weather.location.name }}
   </div>
 
 </div>
-
 <div class="main">
-  <h2>Sidebar</h2>
-  <div *ngIf= weather>
-    <label>Temperature (F): {{ weather.current.temp_f }}</label><br>
+
+  <div class="radio-buttons mb-2 mt-4">
+    <label class="radio-button ">
+      <input type="radio" name="radio" value="today" checked>
+      Today
+    </label>
+    <label class="radio-button">
+      <input type="radio" name="radio" value="week">
+      Week
+    </label>
+  </div>
+
+  <div class="flex gap-2 mt-2 ">
+    <div *ngFor="let fore of weather?.forecast?.forecastday" class="card text-center" style="width:14%">
+      <div class="flex-column ">
+        <div class="">{{ fore.date_epoch * 1000 | date: 'EEEE' }}</div>
+        <img [src]="'https:' + fore.day.condition.icon" alt="weather condition icon">
+        <div>
+          {{ fore.day.avgtemp_c }} °C
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <p-divider align="left">
+    <span class="p-tag" [style]="{'background': '#6fa8d91f', 'color': '#30337E', 'font-size':'1rem', 'border-radius': '1'}"  > Today's Highlights</span>
+  </p-divider>
+  <div class="grid">
+    <div class="col-4 ">
+      <div class="card text-center">
+        <label>Wind Status</label>
+        <div><label style="font-size: 3em">{{ weather?.current?.wind_kph }}</label> km/h</div>
+        <div class="flex justify-content-center align-items-center gap-2  ">
+          <div class="relative  border-1 border-gray-100 w-5rem h-5rem " style="border-radius: 50%; font-size:12px">
+            <div class="absolute" style="top: 3px; left:44%">
+              N
+            </div>
+            <div class="absolute" style="right: 3px; top:40%">
+              E
+            </div>
+            <div class="absolute" style="left: 3px; top:40%">
+              W
+            </div>
+            <div class="absolute" style="bottom: 3px; left:44%">
+              S
+            </div>
+            <div class="absolute w-1rem h-1rem" style="top: 40%; left: 42%" [style.rotate]="weather.current.wind_degree +80 + 'deg'">
+              <i  class="pi pi-angle-double-right" ></i>
+            </div>
+
+          </div>
+          <label >{{ weather?.current?.wind_dir }}</label>
+
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        111
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        111
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        111
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        111
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        111
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div *ngIf=weather>
     <label>Condition: {{ weather.current.condition?.text }}</label><br>
     <img [src]="'https:' + weather.current.condition?.icon" alt="weather condition icon">
-<div> tarih: {{ weather.current.last_updated_epoch * 1000 | date : 'dd.MM.yyyy EEEE' }}</div>
-    <div>Sıcaklık (C): {{ weather.current.temp_c }}</div>
     <div>Sıcaklık (F): {{ weather.current.temp_f }}</div>
     <div>Durum: {{ weather.current.condition?.text }}</div>
-    <img [src]="'https:' + weather.current.condition?.icon" alt="hava durumu ikonu">
     <div>Rüzgar Hızı (mph): {{ weather.current.wind_mph }}</div>
     <div>Rüzgar Hızı (kph): {{ weather.current.wind_kph }}</div>
     <div>Rüzgar Derecesi: {{ weather.current.wind_degree }}</div>

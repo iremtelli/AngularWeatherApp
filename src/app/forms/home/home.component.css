@@ -6,7 +6,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #0a1531;
+
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -25,7 +25,6 @@
 
 .main {
   margin-left: 366px;
-  font-size: 28px;
   padding: 0px 10px;
 }
 
@@ -39,7 +38,6 @@
   padding: 1rem;
   border-radius: 1rem;
   background: #e8e8e8;
-  box-shadow: 10px 2px 22px #c5c5c5, -20px -22px 60px #ffffff00;
   transition: 0.3s;
 }
 
@@ -49,4 +47,35 @@
   box-shadow: inset 20px 20px 60px #c5c5c5,
   inset -20px -20px 60px #ffffff;
   transition: 0.3s;
+}
+.radio-buttons {
+  width:14rem;
+  display: flex;
+  border: 3px solid #ffdfff;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.radio-button {
+  flex: 1;
+  text-align: center;
+  padding: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.radio-button input:checked + label {
+  background-color: #ffdfff;
+}
+.radio-button:hover {
+  background-color: #ffe6ff;
+}
+
+
+.radio-button input {
+  display: none;
+}
+
+:host::ng-deep .p-divider-content {
+  border-radius: 10px !important;
 }

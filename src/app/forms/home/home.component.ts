@@ -2,10 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {WeatherService} from "../../service/weather.service";
 import {HttpClient} from "@angular/common/http";
 import {Current} from "../../models/current.model";
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {Weather} from "../../models/weather.model";
 import {FormsModule} from "@angular/forms";
 import {GeolocationService} from "../../service/geolocation.service";
+import {Forecast} from "../../models/forecast.model";
+import {DividerModule} from "primeng/divider";
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,9 @@ import {GeolocationService} from "../../service/geolocation.service";
   imports: [
     NgIf,
     DatePipe,
-    FormsModule
+    FormsModule,
+    NgForOf,
+    DividerModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -30,8 +34,9 @@ city:string = "";
   ngOnInit() {
     this.geolocationService.getCurrentLocation().then(
       position => {
-        this.weatherService.currentCoords(position.coords.latitude, position.coords.longitude).subscribe((data) => {
+        this.weatherService.forecastCoords(position.coords.latitude, position.coords.longitude).subscribe((data: any) => {
           this.weather = data;
+          console.log(this.weather)
         })
       }
     )
