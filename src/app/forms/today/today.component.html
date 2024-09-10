@@ -1,0 +1,26 @@
+
+<!--<div class="flex gap-2 flex-wrap">-->
+<!--  @for (hour of hourList ; track hour) {-->
+<!--    <div class="card text-center" >-->
+<!--      <div class="flex-column">-->
+<!--         <span>-->
+<!--          {{hour?.time_epoch | date :'HH:mm'}}-->
+<!--        </span>-->
+<!--        <span>-->
+<!--                  <img [src]="'https:' + hour?.condition?.icon" alt="weather condition icon">-->
+
+<!--        </span>-->
+
+<!--        <span>-->
+<!--                {{hour?.temp_c}}-->
+
+<!--        </span>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  }-->
+<!--</div>-->
+
+<p-chart type="line" [data]="hourData" [options]="hourOptions"></p-chart>
+
+

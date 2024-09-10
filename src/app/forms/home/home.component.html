@@ -14,21 +14,25 @@
 
 </div>
 <div class="main">
+<button pButton label="Today" class="p-button-sm" > </button>
+<!--  <div *ngIf="todayVisible">-->
+<!--    <app-today [hourList]="weather?.forecast?.forecastday[0].hour"></app-today>-->
 
-  <div class="radio-buttons mb-2 mt-4">
-    <label class="radio-button ">
-      <input type="radio" name="radio" value="today" checked>
-      Today
-    </label>
-    <label class="radio-button">
-      <input type="radio" name="radio" value="week">
-      Week
-    </label>
-  </div>
+<!--  </div>-->
+<!--  <div class="radio-buttons mb-2 mt-4">-->
+<!--    <label class="radio-button ">-->
+<!--      <input type="radio" name="radio" value="today" checked>-->
+<!--      Today-->
+<!--    </label>-->
+<!--    <label class="radio-button">-->
+<!--      <input type="radio" name="radio" value="week">-->
+<!--      Week-->
+<!--    </label>-->
+<!--  </div>-->
 
   <div class="flex gap-2 mt-2 ">
     <div *ngFor="let fore of weather?.forecast?.forecastday" class="card text-center" style="width:14%">
-      <div class="flex-column ">
+      <div class="flex-column" (click)="hourDialog(fore)">
         <div class="">{{ fore.date_epoch * 1000 | date: 'EEEE' }}</div>
         <img [src]="'https:' + fore.day.condition.icon" alt="weather condition icon">
         <div>
@@ -40,7 +44,7 @@
     </div>
   </div>
   <p-divider align="left">
-    <span class="p-tag" [style]="{'background': '#6fa8d91f', 'color': '#30337E', 'font-size':'1rem', 'border-radius': '1'}"  > Today's Highlights</span>
+    <span class="p-tag" [style]="{'background': '#6fa8d91f', 'color': '#30337E', 'font-size':'1rem', 'border-radius': '1F'}"> Today's Highlights</span>
   </p-divider>
   <div class="grid">
     <div class="col-4 ">
@@ -62,91 +66,69 @@
               S
             </div>
             <div class="absolute w-1rem h-1rem" style="top: 40%; left: 42%" [style.rotate]="weather.current.wind_degree +80 + 'deg'">
-              <i  class="pi pi-angle-double-right" ></i>
+              <i class="pi pi-angle-double-right"></i>
             </div>
 
           </div>
-          <label >{{ weather?.current?.wind_dir }}</label>
+          <label>{{ weather?.current?.wind_dir }}</label>
 
 
         </div>
 
       </div>
     </div>
-    <div class="col-4">
-      <div class="card">
-        111
+    <div class="col-4 ">
+      <div class="card text-center" style="height: 184px">
+        <label>Sunrise & Sunset</label>
+        <div class="flex justify-content-around align-items-center gap-4">
+          <div>
+            <i class="pi pi-sun" style="font-size: 2em;"></i>
+            <div><label style="font-size: 1.5em">{{ weather?.forecast?.forecastday[0]?.astro?.sunrise }}</label></div>
+            <label>Sunrise</label>
+          </div>
+          <div>
+            <i class="pi pi-moon" style="font-size: 2em;"></i>
+            <div><label style="font-size: 1.5em">{{ weather?.forecast?.forecastday[0]?.astro?.sunset }}</label></div>
+            <label>Sunset</label>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-4">
-      <div class="card">
-        111
+
+    <div class="col-4 ">
+      <div class="card text-center" style="height: 184px">
+        <label>Air Quality (PM2.5)</label>
+        <div style="font-size: 2em">{{ weather?.current?.air_quality?.pm2_5 }}</div>
+        <label>μg/m³</label>
       </div>
     </div>
-    <div class="col-4">
-      <div class="card">
-        111
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        111
-      </div>
-    </div>
-    <div class="col-4">
-      <div class="card">
-        111
+
+    <div class="col-4 ">
+      <div class="card flex justify-content-center flex-column align-items-center text-center" style="height: 184px">
+        <label>UV Index</label>
+        <p-chart width="8rem" height="8rem" type="doughnut" [data]="data" [options]="options"></p-chart>
+
       </div>
     </div>
 
 
+    <div class="col-4">
+      <div class="card text-center" style="height: 184px">
+        <label>Visibility</label>
+        <div style="font-size: 2em">{{ weather?.current?.vis_km }}</div>
+        <label>km</label>
+      </div>
+    </div>
+
+
+    <div class="col-4">
+      <div class="card text-center" style="height: 184px">
+        <label>Humidity</label>
+        <div style="font-size: 2em">{{ weather?.current?.humidity }}</div>
+        <label>%</label>
+      </div>
+    </div>
   </div>
-
-
-  <div *ngIf=weather>
-    <label>Condition: {{ weather.current.condition?.text }}</label><br>
-    <img [src]="'https:' + weather.current.condition?.icon" alt="weather condition icon">
-    <div>Sıcaklık (F): {{ weather.current.temp_f }}</div>
-    <div>Durum: {{ weather.current.condition?.text }}</div>
-    <div>Rüzgar Hızı (mph): {{ weather.current.wind_mph }}</div>
-    <div>Rüzgar Hızı (kph): {{ weather.current.wind_kph }}</div>
-    <div>Rüzgar Derecesi: {{ weather.current.wind_degree }}</div>
-    <div>Rüzgar Yönü: {{ weather.current.wind_dir }}</div>
-    <div>Basınç (mb): {{ weather.current.pressure_mb }}</div>
-    <div>Basınç (in): {{ weather.current.pressure_in }}</div>
-    <div>Yağış (mm): {{ weather.current.precip_mm }}</div>
-    <div>Yağış (in): {{ weather.current.precip_in }}</div>
-    <div>Nem: {{ weather.current.humidity }}</div>
-    <div>Bulut: {{ weather.current.cloud }}</div>
-    <div>Hissedilen Sıcaklık (C): {{ weather.current.feelslike_c }}</div>
-    <div>Hissedilen Sıcaklık (F): {{ weather.current.feelslike_f }}</div>
-    <div>Rüzgar Soğukluğu (C): {{ weather.current.windchill_c }}</div>
-    <div>Rüzgar Soğukluğu (F): {{ weather.current.windchill_f }}</div>
-    <div>Sıcaklık Endeksi (C): {{ weather.current.heatindex_c }}</div>
-    <div>Sıcaklık Endeksi (F): {{ weather.current.heatindex_f }}</div>
-    <div>Çiy Noktası (C): {{ weather.current.dewpoint_c }}</div>
-    <div>Çiy Noktası (F): {{ weather.current.dewpoint_f }}</div>
-    <div>Görüş Mesafesi (km): {{ weather.current.vis_km }}</div>
-    <div>Görüş Mesafesi (mil): {{ weather.current.vis_miles }}</div>
-    <div>UV Endeksi: {{ weather.current.uv }}</div>
-    <div>Rüzgar Gürültüsü (mph): {{ weather.current.gust_mph }}</div>
-    <div>Rüzgar Gürültüsü (kph): {{ weather.current.gust_kph }}</div>
-    <div>Hava Kalitesi (CO): {{ weather.current.air_quality?.co }}</div>
-    <div>Hava Kalitesi (NO2): {{ weather.current.air_quality?.no2 }}</div>
-    <div>Hava Kalitesi (O3): {{ weather.current.air_quality?.o3 }}</div>
-    <div>Hava Kalitesi (PM2.5): {{ weather.current.air_quality?.pm2_5 }}</div>
-    <div>Hava Kalitesi (PM10): {{ weather.current.air_quality?.pm10 }}</div>
-    <div>Hava Kalitesi (SO2): {{ weather.current.air_quality?.so2 }}</div>
-
-
-    <div>Ülke: {{ weather.location?.name }}</div>
-    <div>Enlem: {{ weather.location?.name }}</div>
-    <div>Yerel Saat: {{ weather.location?.localtime }}</div>
-    <div>Boylam: {{ weather.location?.lon }}</div>
-    <div>İsim: {{ weather.location?.name }}</div>
-    <div>Bölge: {{ weather.location?.region }}</div>
-    <div>Zaman Dilimi: {{ weather.location?.tz_id }}</div>
-  </div>
-
 </div>
+
 
