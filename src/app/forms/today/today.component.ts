@@ -34,11 +34,12 @@ export class TodayComponent implements OnInit {
           label: '',
           data: this.hourList.map(v => v.temp_c.toString()),
           fill: true,
-          borderColor: '#5d0505',
+          borderColor: 'rgba(44,44,187,0.85)',
+          backgroundColor:'rgba(182,237,253,0.82)',
           tension: 0.4,
           pointStyle: 'image',
           pointBackground: 'assets/right-arrow.png',
-          pointRadius: 25
+          pointRadius: 3
         },
       ]
     };

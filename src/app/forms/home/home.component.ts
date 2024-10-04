@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
   }
 
   getTodayWeather() {
-    this.weatherService.current(this.city).subscribe((data: any) => {
+    this.weatherService.forecastCity(this.city).subscribe((data: any) => {
       this.weather = data;
       this.updateUVChart(this.weather?.current?.uv);
 
@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
     };
 
     this.options = {
-      cutout: '60%',
+      cutout: '70%',
       plugins: {
         legend: {
           labels: {
@@ -126,10 +126,10 @@ export class HomeComponent implements OnInit {
   }
 
   getUVColor(uvIndex: number): string {
-    if (uvIndex <= 2) return '#4CAF50';
-    if (uvIndex <= 5) return '#FFEB3B';
+    if (uvIndex <= 2) return '#65d798';
+    if (uvIndex <= 5) return '#efe05c';
     if (uvIndex <= 7) return '#FFC107';
-    if (uvIndex <= 10) return '#FF5722';
+    if (uvIndex <= 10) return '#da7251';
     return '#D32F2F';
   }
 
@@ -139,8 +139,9 @@ export class HomeComponent implements OnInit {
         hourList: fore.hour,
       },
       header: this.datePipe.transform(fore.date_epoch * 1000)?.toString(),
-      width: '80%',
+      width: '90%',
       height: '70%',
+
 
     })
   }

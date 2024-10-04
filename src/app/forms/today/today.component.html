@@ -22,5 +22,10 @@
 <!--</div>-->
 
 <p-chart type="line" [data]="hourData" [options]="hourOptions"></p-chart>
+<div class="flex align-items-center ml-2">
+  @for(hour of hourList; track hour) {
+    <img [src]="'https:' + hour.condition.icon" class="" alt="weather condition icon" width="55.5" height="55.5">
+  }
+</div>
 
 

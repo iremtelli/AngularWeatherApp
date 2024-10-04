@@ -1,6 +1,8 @@
 <div class="sidenav border-right-1 border-purple-900">
-  <input type="text" name="text" class="input shadow-4" [(ngModel)]="city" (keyup.enter)="getTodayWeather()" placeholder="Search for places...">
-  <img style="width:94%; height: 13rem" [src]="getImage(weather?.current?.condition?.code)"/>
+  <div class="text-center">
+    <input type="text" name="text" class="input shadow-4" [(ngModel)]="city" (keyup.enter)="getTodayWeather()" placeholder="Search for places...">
+  </div>
+  <img style="width:100%; height: 13rem" [src]="getImage(weather?.current?.condition?.code)" alt=""/>
   <div style="    font-size: 45px;
     display: flex;
     justify-content: center;
@@ -14,23 +16,7 @@
 
 </div>
 <div class="main">
-<button pButton label="Today" class="p-button-sm" > </button>
-<!--  <div *ngIf="todayVisible">-->
-<!--    <app-today [hourList]="weather?.forecast?.forecastday[0].hour"></app-today>-->
-
-<!--  </div>-->
-<!--  <div class="radio-buttons mb-2 mt-4">-->
-<!--    <label class="radio-button ">-->
-<!--      <input type="radio" name="radio" value="today" checked>-->
-<!--      Today-->
-<!--    </label>-->
-<!--    <label class="radio-button">-->
-<!--      <input type="radio" name="radio" value="week">-->
-<!--      Week-->
-<!--    </label>-->
-<!--  </div>-->
-
-  <div class="flex gap-2 mt-2 ">
+  <div class="flex gap-2 mt-3 ">
     <div *ngFor="let fore of weather?.forecast?.forecastday" class="card text-center" style="width:14%">
       <div class="flex-column" (click)="hourDialog(fore)">
         <div class="">{{ fore.date_epoch * 1000 | date: 'EEEE' }}</div>
@@ -44,7 +30,7 @@
     </div>
   </div>
   <p-divider align="left">
-    <span class="p-tag" [style]="{'background': '#6fa8d91f', 'color': '#30337E', 'font-size':'1rem', 'border-radius': '1F'}"> Today's Highlights</span>
+    <span class="p-tag" [style]="{'background': 'rgba(255,255,255,0.12)', 'color': '#0c0c0e', 'font-size':'1rem', 'border-radius': '1F'}"> Today's Highlights</span>
   </p-divider>
   <div class="grid">
     <div class="col-4 ">
@@ -81,12 +67,12 @@
       <div class="card text-center" style="height: 184px">
         <label>Sunrise & Sunset</label>
         <div class="flex justify-content-around align-items-center gap-4">
-          <div>
+          <div class="pt-5">
             <i class="pi pi-sun" style="font-size: 2em;"></i>
             <div><label style="font-size: 1.5em">{{ weather?.forecast?.forecastday[0]?.astro?.sunrise }}</label></div>
             <label>Sunrise</label>
           </div>
-          <div>
+          <div class="pt-5">
             <i class="pi pi-moon" style="font-size: 2em;"></i>
             <div><label style="font-size: 1.5em">{{ weather?.forecast?.forecastday[0]?.astro?.sunset }}</label></div>
             <label>Sunset</label>
@@ -96,18 +82,26 @@
     </div>
 
     <div class="col-4 ">
-      <div class="card text-center" style="height: 184px">
+      <div class="card text-center " style="height: 184px">
         <label>Air Quality (PM2.5)</label>
-        <div style="font-size: 2em">{{ weather?.current?.air_quality?.pm2_5 }}</div>
-        <label>μg/m³</label>
+        <div class="flex flex-column justify-content-center align-items-center pt-3">
+          <div style="font-size: 4em">{{ weather?.current?.air_quality?.pm2_5 }}</div>
+          <label>μg/m³</label>
+        </div>
+
       </div>
     </div>
 
     <div class="col-4 ">
       <div class="card flex justify-content-center flex-column align-items-center text-center" style="height: 184px">
         <label>UV Index</label>
-        <p-chart width="8rem" height="8rem" type="doughnut" [data]="data" [options]="options"></p-chart>
+        <div class="relative">
+          <p-chart width="8rem" height="8rem" type="doughnut" [data]="data" [options]="options"></p-chart>
 
+        </div>
+        <div class="absolute mt-4">
+          {{weather?.current?.uv}}
+        </div>
       </div>
     </div>
 
@@ -115,8 +109,10 @@
     <div class="col-4">
       <div class="card text-center" style="height: 184px">
         <label>Visibility</label>
-        <div style="font-size: 2em">{{ weather?.current?.vis_km }}</div>
-        <label>km</label>
+        <div class="flex flex-column align-items-center justify-content-center pt-1">
+          <div><label style="font-size: 4em">{{ weather?.current?.vis_km }}</label>km</div>
+          <img src="assets/clean-air.png" width="36">
+        </div>
       </div>
     </div>
 
@@ -124,8 +120,10 @@
     <div class="col-4">
       <div class="card text-center" style="height: 184px">
         <label>Humidity</label>
-        <div style="font-size: 2em">{{ weather?.current?.humidity }}</div>
-        <label>%</label>
+        <div class="flex flex-column align-items-center justify-content-center pt-1">
+          <div><label style="font-size: 4em">{{ weather?.current?.humidity }}</label>%</div>
+          <img src="assets/humidity.png" width="36">
+        </div>
       </div>
     </div>
   </div>

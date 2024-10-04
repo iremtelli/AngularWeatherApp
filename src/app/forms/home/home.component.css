@@ -37,13 +37,13 @@
   border: none;
   padding: 1rem;
   border-radius: 1rem;
-  background: #e8e8e8;
+  background: #3f457c;
   transition: 0.3s;
 }
 
 .input:focus {
-  outline-color: #e8e8e8;
-  background: #e8e8e8;
+  outline-color: #3f457c;
+  background: #3f457c;
   box-shadow: inset 20px 20px 60px #c5c5c5,
   inset -20px -20px 60px #ffffff;
   transition: 0.3s;
@@ -70,7 +70,9 @@
 .radio-button:hover {
   background-color: #ffe6ff;
 }
-
+:host::ng-deep .p-divider-content {
+  background: aliceblue;
+}
 
 .radio-button input {
   display: none;
@@ -79,3 +81,5 @@
 :host::ng-deep .p-divider-content {
   border-radius: 10px !important;
 }
+
+
